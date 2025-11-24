@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODISEA GYM - Tu Destino Fitness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%);
+            padding: 20px 5%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FFD700;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: pulse 5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: #FFD700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            padding: 15px 40px;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Servicios */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .servicio-card {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            padding: 30px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servicio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .servicio-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .servicio-card:hover {
+            border-color: #FFD700;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .servicio-card h3 {
+            color: #FFD700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Horarios */
+        .horarios-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            padding: 40px;
+            border: 2px solid #FFD700;
+        }
+
+        .horario-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .horario-item:last-child {
+            border-bottom: none;
+        }
+
+        .horario-item span:first-child {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        /* Precios */
+        .precios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .precio-card {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #333;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .precio-card:hover {
+            border-color: #FFD700;
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+        }
+
+        .precio-card.destacado {
+            border-color: #FFD700;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+        }
+
+        .precio-card.destacado::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #FFD700;
+            color: #000;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .precio-card h3 {
+            color: #FFD700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .precio {
+            font-size: 3rem;
+            color: #fff;
+            margin: 20px 0;
+        }
+
+        .precio span {
+            font-size: 1.5rem;
+            color: #999;
+        }
+
+        .precio-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .precio-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Contacto */
+        .contacto-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contacto-info {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            padding: 40px;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contacto-icon {
+            width: 50px;
+            height: 50px;
+            background: #FFD700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        .contacto-form {
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            border: 2px solid #333;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .submit-button:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: #0d0d0d;
+            padding: 30px 10%;
+            text-align: center;
+            border-top: 2px solid #FFD700;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: #FFD700;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Menu Hamburguesa */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #FFD700;
+            transition: all 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.3s;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 0 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .horarios-container {
+                padding: 30px 20px;
+            }
+
+            .horario-item {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .precios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .precio-card {
+                padding: 30px 20px;
+            }
+
+            .precio {
+                font-size: 2.5rem;
+            }
+
+            .contacto-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .contacto-info,
+            .contacto-form {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .servicio-card,
+            .precio-card {
+                padding: 25px 15px;
+            }
+
+            .precio-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .precio {
+                font-size: 2rem;
+            }
+
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">ODISEA GYM</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#servicios">SERVICIOS</a></li>
+                <li><a href="#horarios">HORARIOS</a></li>
+                <li><a href="#precios">PRECIOS</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>ODISEA GYM</h1>
+            <p>Transforma Tu Cuerpo, Supera Tus Límites</p>
+            <button class="cta-button" onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})">
+                ÚNETE AHORA
+            </button>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <h2>NUESTROS SERVICIOS</h2>
+        <div class="servicios-grid">
+            <div class="servicio-card">
+                <h3>💪 MUSCULACIÓN</h3>
+                <p>Equipamiento de última generación para desarrollar tu máximo potencial. Zona completa de pesas libres y máquinas profesionales.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>🚴 SPINNING</h3>
+                <p>Clases dinámicas y motivadoras con instructores certificados. Quema calorías mientras te diviertes al ritmo de la música.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>🏃 CARDIO</h3>
+                <p>Zona completa de cardio con cintas de correr, bicicletas elípticas y máquinas de remo. Mejora tu resistencia cardiovascular.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>🥊 BODY COMBAT</h3>
+                <p>Entrenamiento de alta intensidad inspirado en artes marciales. Descarga energía y ponte en forma con movimientos potentes.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>🧘 CORE & TRX</h3>
+                <p>Fortalece tu núcleo con ejercicios funcionales y suspensión. Mejora tu estabilidad, fuerza y equilibrio.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>🔥 CIRCUIT TRAINING</h3>
+                <p>Entrenamiento en circuito de alta intensidad. Combina fuerza y cardio para resultados máximos en tiempo mínimo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios">
+        <h2>HORARIOS</h2>
+        <div class="horarios-container">
+            <div class="horario-item">
+                <span>LUNES - VIERNES</span>
+                <span>07:30 - 22:00</span>
+            </div>
+            <div class="horario-item">
+                <span>SÁBADOS</span>
+                <span>09:00 - 15:00</span>
+            </div>
+            <div class="horario-item">
+                <span>DOMINGOS</span>
+                <span>Cerrado</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="precios">
+        <h2>TARIFAS</h2>
+        <div class="precios-grid">
+            <div class="precio-card">
+                <h3>MENSUAL</h3>
+                <div class="precio">35€<span>/mes</span></div>
+                <ul class="precio-features">
+                    <li>Acceso ilimitado</li>
+                    <li>Todas las clases dirigidas</li>
+                    <li>Zona de musculación</li>
+                    <li>Vestuarios y duchas</li>
+                </ul>
+            </div>
+            <div class="precio-card destacado">
+                <h3>TRIMESTRAL</h3>
+                <div class="precio">90€<span>/3 meses</span></div>
+                <ul class="precio-features">
+                    <li>Acceso ilimitado</li>
+                    <li>Todas las clases dirigidas</li>
+                    <li>Zona de musculación</li>
+                    <li>Vestuarios y duchas</li>
+                    <li>Plan de entrenamiento personalizado</li>
+                </ul>
+            </div>
+            <div class="precio-card">
+                <h3>ANUAL</h3>
+                <div class="precio">300€<span>/año</span></div>
+                <ul class="precio-features">
+                    <li>Acceso ilimitado</li>
+                    <li>Todas las clases dirigidas</li>
+                    <li>Zona de musculación</li>
+                    <li>Vestuarios y duchas</li>
+                    <li>Plan personalizado + seguimiento</li>
+                    <li>Invitaciones para amigos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>CONTACTO</h2>
+        <div class="contacto-container">
+            <div class="contacto-info">
+                <div class="contacto-item">
+                    <div class="contacto-icon">📍</div>
+                    <div>
+                        <h3>Ubicación</h3>
+                        <p>Carretera General Cabo Blanco - Buzanada<br>Arona, Tenerife, Canarias</p>
+                    </div>
+                </div>
+                <div class="contacto-item">
+                    <div class="contacto-icon">📧</div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>feblesodiseagym@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contacto-item">
+                    <div class="contacto-icon">📱</div>
+                    <div>
+                        <h3>Síguenos</h3>
+                        <p>@odiseagym_febles</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contacto-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="nombre" placeholder="Nombre *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="telefono" placeholder="Teléfono">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mensaje" placeholder="Mensaje *" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" id="submitBtn">ENVIAR MENSAJE</button>
+                    <div id="formMessage" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/odiseagym_febles/" target="_blank">📷</a>
+            <a href="mailto:feblesodiseagym@gmail.com">📧</a>
+        </div>
+        <p>&copy; 2024 ODISEA GYM. Todos los derechos reservados.</p>
+        <p style="margin-top: 10px; color: #FFD700;">Tu destino fitness en Tenerife</p>
+    </footer>
+
+    <script>
+        // Menu hamburguesa
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efecto parallax en el hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Formulario de contacto con EmailJS
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Obtener valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const telefono = document.getElementById('telefono').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            // Deshabilitar botón mientras se envía
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'ENVIANDO...';
+
+            // Crear el mailto link con toda la información
+            const subject = encodeURIComponent('Nueva consulta desde ODISEA GYM - ' + nombre);
+            const body = encodeURIComponent(
+                'NUEVA CONSULTA DESDE LA WEB\n\n' +
+                '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                'DATOS DEL CONTACTO:\n\n' +
+                'Nombre: ' + nombre + '\n' +
+                'Email: ' + email + '\n' +
+                'Teléfono: ' + (telefono || 'No proporcionado') + '\n\n' +
+                '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                'MENSAJE:\n\n' + mensaje + '\n\n' +
+                '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+                'Este mensaje fue enviado desde el formulario de contacto de odiseagym.com'
+            );
+
+            // Abrir cliente de correo
+            window.location.href = 'mailto:feblesodiseagym@gmail.com?subject=' + subject + '&body=' + body;
+
+            // Mostrar mensaje de éxito
+            formMessage.style.display = 'block';
+            formMessage.style.background = '#FFD700';
+            formMessage.style.color = '#000';
+            formMessage.textContent = '✓ Tu cliente de correo se ha abierto. Por favor envía el email para completar el proceso.';
+
+            // Resetear formulario
+            contactForm.reset();
+            
+            // Restaurar botón después de 2 segundos
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ENVIAR MENSAJE';
+                formMessage.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
