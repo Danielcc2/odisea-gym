@@ -229,20 +229,22 @@
             margin-bottom: 15px; 
         }
 
-        /* --- PLANES --- */
+        /* --- PLANES (VOLVER A FLEX WRAP) --- */
         .pricing { background-color: var(--bg-dark); }
 
         .pricing-grid {
             display: flex;
             justify-content: center;
             gap: 30px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* Permite que las tarjetas salten a la siguiente fila */
         }
-
+        
         .price-card {
             background-color: var(--bg-black);
-            padding: 40px;
-            width: 320px;
+            padding: 40px; /* Vuelvo al padding original */
+            width: 280px; /* Vuelvo a las dimensiones que causan el salto */
+            max-width: 320px;
+            flex-grow: 1; /* Permite que se estiren si hay espacio, pero respeta el width */
             text-align: center;
             border: 1px solid #333;
             position: relative;
@@ -262,14 +264,51 @@
             z-index: 2;
             background-color: #111;
         }
+        
+        /* --- ESTILOS MEJORADOS PARA LA TARJETA ANUAL (BEST VALUE) --- */
+        .price-card.best-value {
+            /* Mantenemos el diseño elegante */
+            background: linear-gradient(145deg, #1f1f1f, #0d0d0d);
+            border: 1px solid var(--primary-yellow);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            /* No lleva transform: scale(1.05) aquí, lo lleva en :hover */
+        }
 
-        .price-card.featured:hover {
+        .price-card.featured:hover, .price-card.best-value:hover {
             transform: scale(1.1) translateY(-10px);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Etiqueta superior elegante */
+        .badge-premium {
+            background: var(--primary-yellow);
+            color: #000;
+            font-weight: bold;
+            font-family: var(--font-title);
+            padding: 8px 0;
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        /* Contenedor de ahorro */
+        .saving-container {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         .price-tag {
             font-family: var(--font-title);
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: var(--primary-yellow);
             margin: 20px 0;
         }
@@ -279,6 +318,78 @@
         .features-list { text-align: left; margin-bottom: 30px; padding-left: 10px;}
         .features-list li { margin-bottom: 12px; color: #bbb; }
         .features-list li::before { content: "⚡"; color: var(--primary-yellow); margin-right: 10px; }
+        
+        /* Texto de ahorro */
+        .saving-text { color: var(--primary-yellow); font-weight: bold; display:block; }
+        .saving-sub { font-size: 0.85rem; color: #ddd; opacity: 0.9; display: block; margin-top: 5px; }
+
+
+        /* --- SECCIÓN EQUIPO --- */
+        .team-section { background-color: var(--bg-black); }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+            padding: 40px 20px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .team-card:hover {
+            border-color: var(--primary-yellow);
+            transform: translateY(-5px);
+        }
+
+        .team-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-yellow);
+            filter: grayscale(80%);
+            transition: 0.3s;
+        }
+
+        .team-card:hover .team-img { filter: grayscale(0%); box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+
+        .team-name {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--text-white);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .team-role {
+            display: block;
+            color: var(--primary-yellow);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .team-bio {
+            font-size: 0.95rem;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
 
         /* --- HORARIOS --- */
         .schedule-grid {
@@ -368,7 +479,7 @@
             box-shadow: 0 0 15px rgba(37, 211, 102, 0.6);
         }
 
-        /* --- COOKIES BANNER & MODAL (NUEVO) --- */
+        /* --- COOKIES BANNER & MODAL --- */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -414,7 +525,6 @@
         }
         .btn-cookie-reject:hover { border-color: #fff; }
 
-        /* Modal Política de Cookies */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -517,12 +627,12 @@
 
             .nav-links.active { right: 0; }
 
-            .price-card.featured { transform: scale(1); margin: 20px 0; }
+            .price-card.featured, .price-card.best-value { transform: scale(1); margin: 0; }
+            
             .info-map { height: 300px; }
             .info-container { flex-direction: column; }
             .section-title { font-size: 2.2rem; }
 
-            /* Ajuste Cookies Móvil */
             .cookie-banner { flex-direction: column; text-align: center; }
             .cookie-content { margin-right: 0; margin-bottom: 15px; }
             .cookie-buttons { width: 100%; justify-content: center; }
@@ -546,6 +656,7 @@
                     <li><a href="#servicios" onclick="toggleMenu()">Zonas</a></li>
                     <li><a href="#horarios" onclick="toggleMenu()">Horarios</a></li>
                     <li><a href="#planes" onclick="toggleMenu()">Membresías</a></li>
+                    <li><a href="#equipo" onclick="toggleMenu()">Equipo</a></li>
                     <li><a href="#ubicacion" onclick="toggleMenu()">Ubicación</a></li>
                     <li><a href="#contacto" class="btn" style="padding: 8px 20px; clip-path: none;" onclick="toggleMenu()">Unirse</a></li>
                 </ul>
@@ -600,6 +711,7 @@
                         <li>Sin compromiso</li>
                         <li>Prueba las instalaciones</li>
                     </ul>
+                    <br>
                     <a href="https://wa.me/34600000000" class="btn-outline">Pagar Visita</a>
                 </div>
 
@@ -627,6 +739,63 @@
                         <li>Invitación para un amigo</li>
                     </ul>
                     <a href="https://wa.me/34600000000" class="btn-outline">Elegir Plan</a>
+                </div>
+
+                <div class="price-card best-value">
+                    <div class="badge-premium">MEJOR PRECIO</div>
+                    <br>
+                    <h3>Anual</h3>
+                    <div class="price-tag">400€<span>/año</span></div>
+                    
+                    <div class="saving-container">
+                        <span class="saving-text">🔥 Ahorras 140€</span>
+                        <span class="saving-sub">(Sale a 33€/mes)</span>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>Acceso Ilimitado 1 año</li>
+                        <li>Matrícula GRATUITA</li>
+                        <li>1 mes de congelación</li>
+                        <li>Prioridad en eventos</li>
+                    </ul>
+                    <a href="https://wa.me/34600000000" class="btn">Comprar Anual</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Nuestro <span>Equipo</span></h2>
+            <p class="section-subtitle">Profesionales dedicados a forjar tu mejor versión</p>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Entrenador 1" class="team-img">
+                    </div>
+                    <h3 class="team-name">Alex "Titán"</h3>
+                    <span class="team-role">Head Coach & Hipertrofia</span>
+                    <p class="team-bio">Especialista en desarrollo muscular y fuerza bruta. Con 10 años de experiencia transformando físicos y compitiendo a nivel nacional.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Entrenadora 2" class="team-img">
+                    </div>
+                    <h3 class="team-name">Sara Croft</h3>
+                    <span class="team-role">Funcional & Cross-Training</span>
+                    <p class="team-bio">Experta en resistencia y movilidad. Te llevará al límite en cada sesión de funcional. "Tu mente se rinde antes que tu cuerpo".</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Entrenador 3" class="team-img">
+                    </div>
+                    <h3 class="team-name">David Lee</h3>
+                    <span class="team-role">Boxeo & Biomecánica</span>
+                    <p class="team-bio">Técnica depurada y precisión. Licenciado en Ciencias del Deporte, asegura que cada golpe y repetición sea perfecto para evitar lesiones.</p>
                 </div>
             </div>
         </div>
@@ -706,11 +875,6 @@
                         <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
                     </svg>
                 </a>
-                <a href="https://wa.me/34600000000" target="_blank" aria-label="WhatsApp">
-                    <svg class="social-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/>
-                    </svg>
-                </a>
                 <a href="mailto:info@odiseagym.com" target="_blank" aria-label="Email">
                     <svg class="social-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
@@ -786,11 +950,9 @@
         const banner = document.getElementById('cookieBanner');
         const modal = document.getElementById('cookieModal');
 
-        // Comprobar si ya aceptó o rechazó
         window.addEventListener('load', () => {
             const cookiesAccepted = localStorage.getItem('odiseaCookies');
             if (!cookiesAccepted) {
-                // Pequeño retardo para que la animación se vea bien
                 setTimeout(() => {
                     banner.classList.add('show');
                 }, 1000);
@@ -804,9 +966,6 @@
         }
 
         function rejectCookies() {
-            // Guardamos que rechazó para no molestar más, 
-            // pero técnicamente Google Maps seguirá ahí porque es un iframe directo.
-            // Para bloqueo estricto total haría falta bloquear el iframe con JS.
             localStorage.setItem('odiseaCookies', 'rejected');
             banner.classList.remove('show');
         }
@@ -819,7 +978,6 @@
             modal.style.display = 'none';
         }
 
-        // Cerrar modal si clic fuera del contenido
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
