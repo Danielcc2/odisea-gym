@@ -40,14 +40,6 @@ function rejectCookies() {
     banner.classList.remove('show');
 }
 
-function openCookieModal() {
-    modal.style.display = 'flex';
-}
-
-function closeCookieModal() {
-    modal.style.display = 'none';
-}
-
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
